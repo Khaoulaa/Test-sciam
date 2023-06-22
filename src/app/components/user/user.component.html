@@ -1,0 +1,25 @@
+<div class="container w-screen p-3 h-full w-screen">
+    <h1 class="text-3xl font-semibold">Users</h1>
+    <div class="max-h-list overflow-y-scroll" (scroll)="onScroll($event)" #contentEl>
+        <div class="grid grid-flow-col pt-4 border-b order-gray" *ngFor="let user of users">
+        <span class="text-gray-500"> {{user?.name}}</span>
+        <div class="flex flex-row justify-end space-x-1 pb-2">
+                <div class="bg-pink text-white text-sm rounded-full h-8 w-8 flex items-center justify-center">
+                    {{(tasks | filter: 'user_id': user.id).length}}
+                </div>
+                <div class="bg-green text-white text-sm rounded-full h-8 w-8 flex items-center justify-center">
+                    {{(tasks | filter: 'user_id': user.id | filter: 'status': DONE).length}}
+                </div>
+                <div class="bg-orange text-white text-sm rounded-full h-8 w-8 flex items-center justify-center">
+                    {{(tasks | filter: 'user_id': user.id | filter: 'status': TODO).length}}
+                </div>
+                <div class="flex items-center justify-center" (click)="redirectToDoList(user.id)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+                            class="w-4 h-4 text-gray">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </div> 
+        </div> 
+        </div>
+    </div>
+</div>

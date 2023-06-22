@@ -1,0 +1,15 @@
+
+
+<div class="container p-5 h-full overflow-auto">
+    <form (ngSubmit)="onSubmitEditTaskForm(tasks, task)" [formGroup]="editTaskForm" class="grid grid-flow-col grid-cols-1 grid-rows-5 gap-5 p-5">
+        <div class="flex flox-col relative">
+            <span class="text-4xl font-semibold">{{idTask !== null ? 'Edit' : 'Add'}} Task</span>
+            <button class="absolute right-3 w-24 h-10 text-sm text-white font-semibold bg-green rounded-full" type="submit" [disabled]="editTaskForm.invalid">
+                {{idTask !== null ? 'Edit' : 'Add'}}
+            </button>
+        </div>
+        <div class="text-sm text-green-600" *ngIf="successMsg"> Task added !</div>
+        <input class="form-input" id="name" type="text" placeholder="Name" formControlName="name">
+        <textarea class="form-textarea" id="description"  placeholder="Description" formControlName="description"></textarea>
+    </form>    
+</div>

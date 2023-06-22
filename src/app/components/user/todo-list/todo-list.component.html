@@ -1,0 +1,41 @@
+<div class="container p-3 w-screen h-full overflow-auto relative">
+    <div class="flex flox-col relative">
+        <span class="text-4xl font-semibold">{{user?.name}}</span>
+        <span class="absolute right-3 text-2xl font-semibold">{{user?.age}} years old</span>
+    </div>
+     <!-- bloc informations tasks-->
+    <div class="grid grid-flow-col grid-cols-3 grid-rows-1 gap-4  p-5 h-32">
+        <app-item-information class="h-full w-full" [information]="informationsTask?.all"></app-item-information>
+        <app-item-information class="h-full w-full" [information]="informationsTask?.done"></app-item-information>
+        <app-item-information class="h-full w-full" [information]="informationsTask?.todo"></app-item-information>
+    </div>
+     <!-- LIST TO DO -->
+     <div class="overflow-y-scroll">
+        <div class="grid grid-flow-col pt-4 border-b order-gray max-h-list" *ngFor="let task of tasks | filter: 'user_id': user?.id; let i=index ">
+            <span class="text-gray-500"> {{task?.name}}</span>
+            <div class="flex flex-row justify-end space-x-1 pb-2">
+                <!-- STATUS-->
+                <input  class="form-checkbox rounded-full w-18 bg-gray-300 text-gray-500 border-inherit" 
+                        type="checkbox" 
+                        [(ngModel)]="status" 
+                        [checked]="task.status" 
+                        (change)="changeStatus(task, i)">
+                <!-- ICON go-->
+                 <div class="" (click)="editTask(idUser, task?.id)">
+                     <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+                             class="w-4 h-4 text-gray">
+                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                     </svg>
+                 </div> 
+            </div> 
+         </div>
+     </div>
+    <div *ngIf="( tasks | filter: 'user_id': user?.id).length === 0">
+        Nope! No tasks .
+    </div>
+    <div class="flex items-center justify-center pt-5 text-indigo-600 underline cursor-pointer h-12">
+         <svg  fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" (click)="createNewTask(idUser)" class="w-14 h-14 fill-green-500 text-white ">
+             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+         </svg>   
+    </div>
+</div>
